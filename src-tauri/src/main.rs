@@ -19,3 +19,4 @@ fn main() {
 
 // test w/ "yarn tauri dev"
 // export w/ "yaurn tauri build"
+// gen icons w/ "arn tauri icon ./src-tauri/icons/toku.png"
