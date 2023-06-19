@@ -4,7 +4,14 @@
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 
 #[tauri::command] 
-fn display(file: &str, folder: &str, converted: &str) -> String {
+fn display(start: &str, end: &str, format: &str) -> String {
+    // JS -> let folder = end.split("/")[end.split("/").collect().length - 1];
+    // directory.split()[last element];
+    // .split returns iterator, .collect turns iterator -> vector
+    let file = start.split("/").collect::<Vec<&str>>()[start.split("/").collect::<Vec<&str>>().len() - 1];
+    let folder = end.split("/").collect::<Vec<&str>>()[end.split("/").collect::<Vec<&str>>().len() - 1];
+    let converted = [file.split(".").collect::<Vec<&str>>()[0].to_string(), format.to_string()].concat();
+
     format!("Converting '{0}' to '{1}' storing in '{2}'", 
     file, converted, folder)
 }

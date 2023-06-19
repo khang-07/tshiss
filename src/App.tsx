@@ -10,15 +10,8 @@ function App() {
   const [format, setFormat] = useState("");
   const [msg, setMsg] = useState("");
 
-  async function display(start: String, end: String, format: String) {
-    // format should include the . in .mp3
-    let file = start.split("/")[start.split("/").length - 1];
-
-    let folder = end.split("/")[end.split("/").length - 1];
-
-    let converted = file.split(".")[0] + format;
-
-    setMsg(await invoke("display", { file, folder, converted }));
+  async function display() {
+    setMsg(await invoke("display", { start, end, format }));
   }
 
   async function read(where: boolean) {
@@ -48,7 +41,7 @@ function App() {
             <form className="row" 
               onSubmit={(e) => {
               e.preventDefault();
-              display(start, end, format);
+              display();
               console.log("submitted");
               }}
             >
