@@ -10,8 +10,13 @@ function App() {
   const [format, setFormat] = useState("");
   const [msg, setMsg] = useState("");
 
-  async function display() {
-    setMsg(await invoke("display", { start, end, format }));
+
+  async function display(start: String, end: String, format: String) {
+    if (start && end && format) {
+      setMsg(await invoke("display", { start, end, format }));
+    } else {
+      alert("missing parameter"); // customize
+    }
   }
 
   async function read(where: boolean) {
@@ -34,7 +39,7 @@ function App() {
 
   return (
       <div className="container">
-        <h1>welcome to tSxhiss!</h1>
+        <h1>welcome to tshiss!</h1>
           <article className="flex">
             <button onClick={() => read(true)}>{start}</button>
             <button onClick={() => read(false)}>{end}</button>
@@ -42,7 +47,7 @@ function App() {
             <form className="row" 
               onSubmit={(e) => {
               e.preventDefault();
-              display();
+              display(start, end, format);
               console.log("submitted");
               }}
             >

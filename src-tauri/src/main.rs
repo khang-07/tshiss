@@ -3,6 +3,7 @@
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 use std::path::Path; 
+use clap::Parser;
 
 #[tauri::command] 
 fn display(start: &str, end: &str, format: &str) -> String {
@@ -17,10 +18,15 @@ fn display(start: &str, end: &str, format: &str) -> String {
     format!("Converted '{0}' to '{2}' and placing in folder '{1}'", file, folder, converted)
 }
 
+#[tauri::command]
+fn convert() {
+    // run ffmepg here
+}
+
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![display])
+        .invoke_handler(tauri::generate_handler![display, convert])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
