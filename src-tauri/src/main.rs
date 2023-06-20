@@ -2,18 +2,19 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+use std::path::Path; 
 
 #[tauri::command] 
 fn display(start: &str, end: &str, format: &str) -> String {
-    // JS -> let folder = end.split("/")[end.split("/").collect().length - 1];
-    // directory.split()[last element];
-    // .split returns iterator, .collect turns iterator -> vector
-    let file = start.split("/").collect::<Vec<&str>>()[start.split("/").collect::<Vec<&str>>().len() - 1];
-    let folder = end.split("/").collect::<Vec<&str>>()[end.split("/").collect::<Vec<&str>>().len() - 1];
-    let converted = [file.split(".").collect::<Vec<&str>>()[0].to_string(), format.to_string()].concat();
+    // JS -> let folder = end.split("/")[end.split("/").collect().length - 1] : directory.split()[last element]
+    // .split returns iterator, .collect turns iterator -> vector : too long tbh
+    // file_name() -> w/o extension, file_stem() -> w/ extension : returns Option<&OsStr>
 
-    format!("Converting '{0}' to '{1}' storing in '{2}'", 
-    file, converted, folder)
+    let file = Path::new(start).file_name().unwrap().to_str().unwrap();
+    let folder = Path::new(end).file_name().unwrap().to_str().unwrap();
+    let converted = [Path::new(start).file_stem().unwrap().to_str().unwrap(), format].join("");
+
+    format!("Converted '{0}' to '{2}' and placing in folder '{1}'", file, folder, converted)
 }
 
 

@@ -26,14 +26,15 @@ function App() {
       where == true ? 
       setStart(path?.toString()!) : setEnd(path?.toString()!);
       // ! at the end guarantees no null -> no null error
-    } catch (err) {
+      // i could also add default params for display() just in case
+     } catch (err) {
       console.error(err);
     }
   };
 
   return (
       <div className="container">
-        <h1>Welcome to tShiss!</h1>
+        <h1>welcome to tSxhiss!</h1>
           <article className="flex">
             <button onClick={() => read(true)}>{start}</button>
             <button onClick={() => read(false)}>{end}</button>
@@ -49,17 +50,17 @@ function App() {
               id="greet-input"
               onChange={(e) => {
                 e.preventDefault();
-                setFormat(e.currentTarget.value); // not needed tbh
+                setFormat(e.currentTarget.value); // it is needed
               }}
-              placeholder="Enter format..."
+              placeholder="include '.' in '.mp4'"
             />
-            <button type="submit">Confirm</button>
+            <button type="submit">confirm</button>
             </form>
 
             <p>{msg}</p>
 
           </article>
-        <p>Work in Progress</p>
+        <p>work in progress :p</p>
       </div>
   );
 }
