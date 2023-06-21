@@ -22,20 +22,17 @@ function App() {
     }
   }
 
-  async function read(where: boolean) {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  async function read(where: boolean): Promise<void> {
     try {
       const path = await open({
         multiple: false,
-        directory: !where, // if choose startFile, no dir
+        directory: !where, // if choose start, no dir, bc needs file
         title: "Open File"  
       });
 
       where == true ? 
-      setStart(path?.toString()!) : setEnd(path?.toString()!);
+      setStart(path?.toString()!) : setEnd(path?.toString()!); // ! at the end guarantees no null error
 
-      // ! at the end guarantees no null -> no null error
-      // i could also add default params for display() just in case
      } catch (err) {
       console.error(err);
     }
@@ -60,7 +57,7 @@ function App() {
               id="greet-input"
               onChange={(e) => {
                 e.preventDefault();
-                setFormat(e.currentTarget.value); // it is needed
+                setFormat(e.currentTarget.value);
               }}
               placeholder="include '.' in '.mp4'"
             />
