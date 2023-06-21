@@ -3,7 +3,8 @@
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 use std::path::Path; 
-use clap::Parser;
+use std::process::Command;
+
 
 #[tauri::command] 
 fn display(start: &str, end: &str, format: &str) -> String {
@@ -15,18 +16,23 @@ fn display(start: &str, end: &str, format: &str) -> String {
     let folder = Path::new(end).file_name().unwrap().to_str().unwrap();
     let converted = [Path::new(start).file_stem().unwrap().to_str().unwrap(), format].join("");
 
-    format!("Converted '{0}' to '{2}' and placing in folder '{1}'", file, folder, converted)
-}
+    let finale = [end, "/", Path::new(start).file_stem().unwrap().to_str().unwrap(), format].join("");
+    let line = format!("ffmpeg -i \"{0}\" \"{1}\"", start, finale);
 
-#[tauri::command]
-fn convert() {
-    // run ffmepg here
-}
+     let hi = Command::new("sh")
+            .arg("-c")
+            .arg(line.clone())
+            // .arg("ffmpeg -i \"/Users/khangnguyen/Documents/take care of yourself.png\" \"/Users/khangnguyen/Documents/take care of yourself.jpg\"")
+            .output();
 
+    //format!("Converted '{0}' to '{2}' and placing in folder '{1}'", file, folder, converted)
+    // format!("{}", "ffmpeg -i \"/Users/khangnguyen/Documents/take care of yourself.png\" \"/Users/khangnguyen/Documents/take care of yourself.jpg\"")
+    line
+}
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![display, convert])
+        .invoke_handler(tauri::generate_handler![display])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

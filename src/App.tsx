@@ -10,12 +10,15 @@ function App() {
   const [format, setFormat] = useState("");
   const [msg, setMsg] = useState("");
 
+  async function convert() {
+    await invoke("convert");
+  }
 
-  async function display(start: String, end: String, format: String) {
+  async function display(start: string, end: string, format: string): Promise<void> {
     if (start && end && format) {
       setMsg(await invoke("display", { start, end, format }));
     } else {
-      alert("missing parameter"); // customize
+      setMsg("error: missing parameter");
     }
   }
 
@@ -30,6 +33,7 @@ function App() {
 
       where == true ? 
       setStart(path?.toString()!) : setEnd(path?.toString()!);
+
       // ! at the end guarantees no null -> no null error
       // i could also add default params for display() just in case
      } catch (err) {
@@ -48,6 +52,7 @@ function App() {
               onSubmit={(e) => {
               e.preventDefault();
               display(start, end, format);
+
               console.log("submitted");
               }}
             >
