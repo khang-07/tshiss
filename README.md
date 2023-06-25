@@ -1,7 +1,23 @@
-# Tauri + React + Typescript
+# tshiss v0.0.1
+> tshiss is a file converter application built in Tauri
+### Setup
+```
+$ brew install ffmpeg
+$ cd tshiss
+$ yarn tauri build
+```
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+### Uses
+- Convert files
+- Access absolute directories
 
-## Recommended IDE Setup
+### How to
+1. Open tshiss
+2. Choose input file
+3. Choose output folder
+4. Specify file extension
+5. Press confirm
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+### Updates 
+- Add youtube-dl (quality options)
+- Multiple conversions
